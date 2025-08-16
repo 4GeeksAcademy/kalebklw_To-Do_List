@@ -1,26 +1,41 @@
-import React from "react";
+import React, {useState} from "react";
+import './index.css'
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+
 
 //create your first component
 const Home = () => {
-	return (
-		<div className="text-center">
-            
 
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+	const [chores, setChores] = useState(["Vacuum", "Wash Dishes", "Dust", "Make Bed"])
+	const [newChore, setNewChore] = useState("")
+	const nextChore = () =>{
+		setChores([newChore])
+	} 
+	const myArray = ["a", "b", "c"]
+	const myNewArray = [...myArray, "d"]
+	console.log(myNewArray)
+	return (
+
+		<div className="text-center">
+	
+			<input onChange={(e) => {
+				const newTask = e.target.value
+				setNewChore(newTask)
+			}}/>
+			<button onClick={() => nextChore()}>
+				Add Chore
+			</button>
+			<ul>
+				{/* <li>Take Out Trash</li> */}
+				{chores.map(
+					(item, i) => {
+						return(
+								<li key={i + "chore"}>{item}</li>
+						)
+					}
+				)}
+			</ul>
+
 		</div>
 	);
 };
