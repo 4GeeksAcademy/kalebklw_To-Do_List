@@ -22,11 +22,12 @@ const Home = () => {
 	}
 
 	return (
-		<div className="text-center">
-			<h1>To-Do List:</h1>
+		<div className="parentDiv container card text-center">
+			<h1 className="toDoHeader">To-Do List:</h1>
 
 			<input
 			value={newChore}
+			placeholder="What Do I Need To Do?"
 			onChange={(e) => {
 				const newTask = e.target.value
 				setNewChore(newTask)
@@ -40,29 +41,41 @@ const Home = () => {
 				}
 			/>
 
-			<button onClick={() => nextChore()}>
-				Add Chore
-			</button>
+			<div className="listBody row justify-content-end">
 
-			<ul>
-				{chores.map(
-					(item, i) => {
+				<div className="listOfChores col">	
+					<ul 
+					className="ulRoot">
+						{chores.map(
+						(item, i) => {
 						return(
-							<div>
-								<li key={i + "chore"}>{item}</li>
-								<span onClick = {() => {
+							<div className="d-flex">
+								<li className="" key={i + "chore"}>{item}</li>
+								<span className="deleteChore"
+								onClick = {() => {
 									deleteChore(item)
 										}
 									}
 								>X</span>
 							</div>
-						)
-					}
-				)}
-			</ul>
-			
+								)
+							}
+						)}
+					</ul>
+				</div>
+
+				<div className="choreButton col-4">
+					<button onClick={() => nextChore()}>
+						Add Chore
+					</button>
+				</div>
+			</div>		
 		</div>
+
+		
 	);
 };
 
 export default Home;
+
+
