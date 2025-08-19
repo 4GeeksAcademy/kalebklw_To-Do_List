@@ -3,39 +3,64 @@ import './index.css'
 
 
 
-//create your first component
+
 const Home = () => {
 
 	const [chores, setChores] = useState(["Vacuum", "Wash Dishes", "Dust", "Make Bed"])
 	const [newChore, setNewChore] = useState("")
 	const nextChore = () =>{
-		setChores([newChore])
+		setChores([...chores, newChore])
+		setNewChore("")
 	} 
-	const myArray = ["a", "b", "c"]
-	const myNewArray = [...myArray, "d"]
-	console.log(myNewArray)
-	return (
 
+	const deleteChore = (item) => {
+		const filteredChores = chores.filter(
+			(choreData) => choreData != item 
+		)
+		console.log("dust: ", filteredChores)	
+		setChores(filteredChores)
+	}
+
+	return (
 		<div className="text-center">
-	
-			<input onChange={(e) => {
+			<h1>To-Do List:</h1>
+
+			<input
+			value={newChore}
+			onChange={(e) => {
 				const newTask = e.target.value
 				setNewChore(newTask)
-			}}/>
+					}
+				}
+			onKeyDown = {(e) => {
+					if (e.key == "Enter"){
+						nextChore(newChore)
+						}
+					}
+				}
+			/>
+
 			<button onClick={() => nextChore()}>
 				Add Chore
 			</button>
+
 			<ul>
-				{/* <li>Take Out Trash</li> */}
 				{chores.map(
 					(item, i) => {
 						return(
+							<div>
 								<li key={i + "chore"}>{item}</li>
+								<span onClick = {() => {
+									deleteChore(item)
+										}
+									}
+								>X</span>
+							</div>
 						)
 					}
 				)}
 			</ul>
-
+			
 		</div>
 	);
 };
